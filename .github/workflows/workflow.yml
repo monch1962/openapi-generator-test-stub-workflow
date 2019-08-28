@@ -44,11 +44,11 @@ jobs:
         curl -vvvv http://$GEN_IP:8080/v2/store/inventory
         
         # Next step would normally be to run a bunch of curl commands to populate the stub data for testing purposes...
-        curl -vvvv -X POST http://$GEN_IP:8080/v2/pet -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"id\": 0, \"category\": { \"id\": 0, \"name\": \"string\" }, \"name\": \"doggie\", \"photoUrls\": [ \"string\" ], \"tags\": [ { \"id\": 0, \"name\": \"string\" } ], \"status\": \"available\"}"
-        curl -vvvv -X POST http://$GEN_IP:8080/v2/pet -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"id\": 1, \"category\": { \"id\": 0, \"name\": \"string\" }, \"name\": \"kitty\", \"photoUrls\": [ \"string\" ], \"tags\": [ { \"id\": 0, \"name\": \"string\" } ], \"status\": \"available\"}"
+        curl -vvvv POST http://$GEN_IP:8080/v2/pet -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"id\": 0, \"category\": { \"id\": 0, \"name\": \"string\" }, \"name\": \"doggie\", \"photoUrls\": [ \"string\" ], \"tags\": [ { \"id\": 0, \"name\": \"string\" } ], \"status\": \"available\"}"
+        curl -vvvv POST http://$GEN_IP:8080/v2/pet -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"id\": 1, \"category\": { \"id\": 0, \"name\": \"string\" }, \"name\": \"kitty\", \"photoUrls\": [ \"string\" ], \"tags\": [ { \"id\": 0, \"name\": \"string\" } ], \"status\": \"available\"}"
 
-        # Now let's do a read to see if our data was loaded properly. If so, we should see some data for "doggie" and "kitty"
-        curl -vvvv -X GET http://$GEN_IP:8080/v2/pet/findByStatus?status=available -H "accept: application/json"
+        # Now let's do a read to see if our data was loaded properly. Hopefully we should see some data for "doggie" and "kitty"
+        curl -vvvv http://$GEN_IP:8080/v2/store/inventory
         
         # All done - let's stop & remove the container instance
         docker stop $CID && docker rm $CID
