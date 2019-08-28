@@ -31,11 +31,12 @@ jobs:
         cd out/$STUB_FRAMEWORK
         docker build . -t openapi-stub
     
-    - name: Spin up the stub image, print the IP address and kill the stub container
+    - name: Spin up the stub image, print the IP address, hit one of the stub endpoints, then kill the stub container
       env:
         STUB_FRAMEWORK: go-server
       run: |
         CID=$(docker run -d openapi-stub:latest)
         GEN_IP=$(docker inspect --format '{{.NetworkSettings.IPAddress}}'  $CID)
         echo "Stub container $CID is accessible on IP $GEN_IP"
+        curl -vvvv http://$GEN_IP:8080/v2/store/inventory
         docker stop $CID && docker rm $CID
