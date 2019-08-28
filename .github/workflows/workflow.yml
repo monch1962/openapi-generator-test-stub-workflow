@@ -25,6 +25,8 @@ jobs:
           -o /local/out/$TEST_FRAMEWORK
           
     - name: Build a Docker image for the stub framework
+      env:
+        STUB_FRAMEWORK: go-server
       run: |
         cd out/$STUB_FRAMEWORK
         docker build . -t openapi-stub
