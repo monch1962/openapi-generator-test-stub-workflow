@@ -1,0 +1,25 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Create stub & test frameworks for a given OpenAPI
+      env:
+        OPENAPI_FILE: https://raw.githubusercontent.com/openapitools/openapi-generator/master/modules/openapi-generator/src/test/resources/2_0/petstore.yaml
+        STUB_FRAMEWORK: go-server
+        TEST_FRAMEWORK: go
+      run: |
+        docker pull openapitools/openapi-generator-cli
+        docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate \
+          -i $OPENAPI_FILE \
+          -g $STUB_FRAMEWORK \
+          -o /local/out/$STUB_FRAMEWORK
+        docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate \
+          -i $OPENAPI_FILE \
+          -g $TEST_FRAMEWORK \
+          -o /local/out/$TEST_FRAMEWORK
