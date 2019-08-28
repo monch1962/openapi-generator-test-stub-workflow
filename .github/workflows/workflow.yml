@@ -35,7 +35,7 @@ jobs:
       env:
         STUB_FRAMEWORK: go-server
       run: |
-        CID=$(docker run -d stub:latest)
+        CID=$(docker run -d openapi-stub:latest)
         GEN_IP=$(docker inspect --format '{{.NetworkSettings.IPAddress}}'  $CID)
         echo "Stub container $CID is accessible on IP $GEN_IP"
         docker stop $CID && docker rm $CID
