@@ -9,3 +9,5 @@ Exploration of how to use openapi-generator to create a CI workflow to:
 - then push the stub image to a Docker registry
 
 Check the Github Actions CI workflow at https://github.com/monch1962/openapi-generator-test-stub-workflow/blob/master/.github/workflows/workflow.yml
+
+Results of the CI executions can be viewed at https://github.com/monch1962/openapi-generator-test-stub-workflow/actions
