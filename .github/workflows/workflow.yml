@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Create stub & test frameworks for a given OpenAPI
+    - name: Create stub & test framework code for a given OpenAPI
       env:
         OPENAPI_FILE: https://raw.githubusercontent.com/openapitools/openapi-generator/master/modules/openapi-generator/src/test/resources/2_0/petstore.yaml
         STUB_FRAMEWORK: go-server
@@ -23,3 +23,8 @@ jobs:
           -i $OPENAPI_FILE \
           -g $TEST_FRAMEWORK \
           -o /local/out/$TEST_FRAMEWORK
+          
+    - name: Build a Docker image for the stub framework
+      run: |
+        cd out/$STUB_FRAMEWORK
+        docker build . -t openapi-stub
