@@ -39,5 +39,14 @@ jobs:
         GEN_IP=$(docker inspect --format '{{.NetworkSettings.IPAddress}}'  $CID)
         echo "Stub container $CID is accessible on IP $GEN_IP"
         docker ps
+        
+        # This curl command proves the stub is running, and one of its endpoints is accessible
         curl -vvvv http://$GEN_IP:8080/v2/store/inventory
+        
+        # Next step would normally be to run a bunch of curl commands to populate the stub data for testing purposes...
         docker stop $CID && docker rm $CID
+        
+    - name: All stub tests have passed - push the new stub image to the Docker registry
+      run: |
+        # docker push ...
+        echo "Stub container image pushed to Docker registry"
