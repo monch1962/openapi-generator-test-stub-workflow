@@ -38,5 +38,6 @@ jobs:
         CID=$(docker run -d openapi-stub:latest)
         GEN_IP=$(docker inspect --format '{{.NetworkSettings.IPAddress}}'  $CID)
         echo "Stub container $CID is accessible on IP $GEN_IP"
+        docker ps
         curl -vvvv http://$GEN_IP:8080/v2/store/inventory
         docker stop $CID && docker rm $CID
